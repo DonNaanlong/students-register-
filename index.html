@@ -78,7 +78,6 @@ Your students should be stored in an array of objects with the following keys:
             container.appendChild(ul);
         }
 
-        // ====== Display All Students ======
         let allStudentsContainer = document.getElementById('allStudents');
         students.forEach(student => {
             let li = document.createElement('li');
@@ -86,7 +85,6 @@ Your students should be stored in an array of objects with the following keys:
             allStudentsContainer.appendChild(li);
         });
 
-        // ====== Group by Class ======
         let classSections = document.getElementById('classSections');
         let studentsByClass = {};
         students.forEach(student => {
@@ -96,9 +94,9 @@ Your students should be stored in an array of objects with the following keys:
             studentsByClass[student.class].push(student);
         });
 
-        for (const className in studentsByClass) {
-            const section = document.createElement('div');
-            const title = document.createElement('h3');
+        for (let className in studentsByClass) {
+            let section = document.createElement('div');
+            let title = document.createElement('h3');
             title.textContent = className;
             section.appendChild(title);
             createStudentList(studentsByClass[className], section);
