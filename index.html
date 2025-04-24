@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Register</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        h2 {
+            margin-top: 30px;
+            color: #333;
+        }
+        .section {
+            margin-bottom: 30px;
+        }
+        ul {
+            list-style-type: none;
+            padding-left: 15px;
+        }
+        li {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Create a student register.
+Your students should be stored in an array of objects with the following keys:
+1. name - Name of the student
+2. class - Class of the student
+3. score - The score of the student (min. 0, max. 100) -->
+
+
+    <h1>Student Register</h1>
+
+    <div class="section">
+        <h2>All Students</h2>
+        <ul id="allStudents"></ul>
+    </div>
+
+    <div class="section" id="classSections">
+        <h2>Students by Class</h2>
+    </div>
+
+    <div class="section" id="gradeSections">
+        <h2>Students by Grade</h2>
+    </div>
+
+    <script>
+        let students = [
+            { name: "Naanlong Joshua", class: "SS1", score: 92 },
+            { name: "Plangji Gabriel", class: "SS2", score: 76 },
+            { name: "Biplang johnson", class: "SS2", score: 88 },
+            { name: "David Daluk", class: "SS1", score: 64 },
+            { name: "Best Joshua", class: "SS2", score: 99 },
+            { name: "Courage Jidauna", class: "SS1", score: 49 },
+            { name: "Nanchin Sati", class: "SS1", score: 34 },
+        ];
+
+        function getGrade(score) {
+            if (score >= 70) return 'A';
+            if (score >= 60) return 'B';
+            if (score >= 50) return 'C';
+            if (score >= 40) return 'D';
+            else
+            return 'F';
+        }
+
+        function createStudentList(students, container) {
+            let ul = document.createElement('ul');
+            students.forEach(student => {
+                let li = document.createElement('li');
+                li.textContent = `${student.name} (${student.class}) - Score: ${student.score}`;
+                ul.appendChild(li);
+            });
+            container.appendChild(ul);
+        }
+
+        // ====== Display All Students ======
+        let allStudentsContainer = document.getElementById('allStudents');
+        students.forEach(student => {
+            let li = document.createElement('li');
+            li.textContent = `${student.name} - ${student.class} - Score: ${student.score}`;
+            allStudentsContainer.appendChild(li);
+        });
+
+        // ====== Group by Class ======
+        let classSections = document.getElementById('classSections');
+        let studentsByClass = {};
+        students.forEach(student => {
+            if (!studentsByClass[student.class]) {
+                studentsByClass[student.class] = [];
+            }
+            studentsByClass[student.class].push(student);
+        });
+
+        for (const className in studentsByClass) {
+            const section = document.createElement('div');
+            const title = document.createElement('h3');
+            title.textContent = className;
+            section.appendChild(title);
+            createStudentList(studentsByClass[className], section);
+            classSections.appendChild(section);
+        }
+    </script>
+</body>
+</html>
